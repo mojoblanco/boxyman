@@ -1,0 +1,15 @@
+version: '3'
+services:
+  web:
+    container_name: boxyman
+    restart: always
+    build: .
+    ports:
+      - '8888:3000'
+    links:
+      - mongo
+  mongo:
+    container_name: boxy-mongo
+    image: mongo
+    ports:
+      - '27017:27017'
