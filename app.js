@@ -6,6 +6,8 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 var expressLayouts = require('express-ejs-layouts');
 
+require('dotenv').config()
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var authRouter = require('./routes/auth');
@@ -15,7 +17,7 @@ var app = express();
 // Connect to mongodb
 mongoose
     .connect(
-        'mongodb://localhost:32768/boxyman', { useNewUrlParser: true }
+        process.env.DB_STRING, { useNewUrlParser: true }
     )
     .then(() => console.log('MongoDB Connected'))
     .catch(err => console.log(err));
