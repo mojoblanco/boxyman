@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -6,26 +8,18 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 var expressLayouts = require('express-ejs-layouts');
 var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
 var flash = require('connect-flash');
 var session = require('express-session');
-
-require('dotenv').config()
+var chalk = require('chalk');
+var debug = require('debug')('app');
 
 var app = express();
 
-// Connect to mongodb
-mongoose
-    .connect(
-        process.env.DB_STRING, { useNewUrlParser: true }
-    )
-    .then(() => console.log('MongoDB Connected'))
-    .catch(err => console.log(err));
-
-// view engine setup
+// View engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// Middlewares
 app.use(expressLayouts);
 app.use(logger('dev'));
 app.use(express.json());
@@ -36,6 +30,14 @@ app.use('/css', express.static(path.join(__dirname, '/node_modules/bootstrap/dis
 app.use('/js', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/js')));
 app.use('/js', express.static(path.join(__dirname, '/node_modules/jquery/dist')));
 app.use('/js', express.static(path.join(__dirname, '/node_modules/popper.js/dist')));
+
+// Connect to mongodb
+mongoose
+    .connect(
+        process.env.DB_STRING, { useNewUrlParser: true }
+    )
+    .then(() => debug(chalk.cyan('MongoDB Connected')))
+    .catch(err => console.log(err));
 
 // For passport
 app.use(session({
