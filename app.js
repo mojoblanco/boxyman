@@ -10,6 +10,7 @@ var expressLayouts = require('express-ejs-layouts');
 var passport = require('passport');
 var flash = require('connect-flash');
 var session = require('express-session');
+var FileStore = require('session-file-store')(session);
 var chalk = require('chalk');
 var debug = require('debug')('app');
 
@@ -31,6 +32,17 @@ app.use('/js', express.static(path.join(__dirname, '/node_modules/bootstrap/dist
 app.use('/js', express.static(path.join(__dirname, '/node_modules/jquery/dist')));
 app.use('/js', express.static(path.join(__dirname, '/node_modules/popper.js/dist')));
 
+// For passport
+app.use(session({
+    store: new FileStore,
+    secret: 'my-secret',
+    resave: true,
+    saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
 // Connect to mongodb
 mongoose
     .connect(
@@ -38,16 +50,6 @@ mongoose
     )
     .then(() => debug(chalk.cyan('MongoDB Connected')))
     .catch(err => console.log(err));
-
-// For passport
-app.use(session({
-    secret: 'my-secret',
-    saveUninitialized: true,
-    resave: true
-}));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(flash());
 
 // Global Vars
 app.use(function(req, res, next) {

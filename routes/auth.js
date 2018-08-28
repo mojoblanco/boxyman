@@ -9,14 +9,17 @@ router.get('/login', function(req, res) {
     res.render('auth/login');
 });
 
-router.post('/login', passport.authenticate('local', {
-        successRedirect: '/',
-        failureRedirect: '/auth/login',
-        failureFlash: true
-    }),
-    function(req, res) {
-        res.redirect('/');
-    });
+router.post('/login', function(req, res, next) {
+    passport.authenticate('local', function(err, user, info) {
+        if (err) { return next(err); }
+        if (!user) { return res.redirect('/login'); }
+        req.logIn(user, function(err) {
+            if (err) { return next(err); }
+            req.user = JSON.stringify(user);
+            return res.redirect('/auth/success');
+        });
+    })(req, res, next);
+});
 
 // Registration
 router.get('/register', function(req, res) {
@@ -84,9 +87,27 @@ router.post('/register', function(req, res) {
 
 // Logout
 router.get('/logout', function(req, res) {
-    req.logout();
-    req.flash('success_msg', 'You are logged out');
-    res.redirect('/auth/login');
+    if (req.session) {
+        // delete session object
+        req.session.destroy(function(err) {
+            if (err) {
+                return next(err);
+            } else {
+                return res.redirect('/');
+            }
+        });
+    }
+});
+
+router.get('/success', function(req, res) {
+    // if (req.session) {
+    //     res.json(req.session.user);
+    // }
+    res.json("Suceess");
+})
+
+router.get('failure', function(req, res) {
+    res.send('Failure');
 });
 
 
