@@ -8,7 +8,7 @@ var expressLayouts = require('express-ejs-layouts');
 var expressValidator = require('express-validator');
 var flash = require('connect-flash');
 var session = require('express-session');
-var FileStore = require('session-file-store')(session);
+const MongoStore = require('connect-mongo')(session);
 var passport = require('passport');
 var mongoose = require('mongoose');
 var chalk = require('chalk');
@@ -48,10 +48,10 @@ app.use('/js', express.static(path.join(__dirname, '/node_modules/jquery/dist'))
 app.use('/js', express.static(path.join(__dirname, '/node_modules/popper.js/dist')));
 
 app.use(session({
-    store: new FileStore(),
     secret: 'my-secret',
-    resave: true,
-    saveUninitialized: true
+    saveUninitialized: false,
+    resave: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
 app.use(passport.initialize());
