@@ -6,42 +6,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/mdb.min.css">
     <link rel="stylesheet" href="/css/style.css">
 
     <title>Boxyman</title>
 </head>
 
 <body>
-    <nav id="mainNav" class="navbar navbar-expand-lg navbar-light bg-light">
+    <!--Navbar-->
+    <nav id="mainNav" class="navbar navbar-expand-lg navbar-dark primary-color">
         <div class="container">
-            <a class="navbar-brand" href="/">Boxyman</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <!-- Navbar brand -->
+            <a class="navbar-brand" href="#">Boxyman</a>
+
+            <!-- Collapse button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav" aria-controls="basicExampleNav"
+                aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Collapsible content -->
+            <div class="collapse navbar-collapse" id="basicExampleNav">
+
+                <!-- Links -->
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Projects</a>
-                    </li>
                     <% if(!user) { %>
                         <li class="nav-item">
                             <a class="nav-link" href="/auth/login">Login</a>
                         </li>
                     <% } else{ %>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/auth/logout">Logout</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <%= user.name %>
-                            </a>
+                        <!-- Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= user.name %></a>
+                            <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/auth/logout">Logout</a>
+                            </div>
                         </li>
                     <% } %>
                 </ul>
             </div>
+            <!-- Collapsible content -->
         </div>
     </nav>
+    <!--/.Navbar-->
 
     <main role="main" class="container">
         <div class="row">
@@ -77,6 +87,7 @@
     <script src="/js/jquery.min.js"></script>
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/mdb.min.js"></script>
 </body>
 
 </html>
