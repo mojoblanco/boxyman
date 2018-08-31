@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    Projects
+                    <button type="button" class="btn btn-primary btn-sm px-3">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                    </button>
+                </h5>
+                <hr>
+                <% if(projects.length > 0) { %>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Published?</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for(var i = 0; i < projects.length; i++) {%>
+                                <tr>
+                                    <td><%= projects[i].name %></td>
+                                    <td><%= projects[i].isPublished %></td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
+                <% } else { %>
+                    <p class="lead">No projects found</p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>

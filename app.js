@@ -22,6 +22,7 @@ mongoose.connect(process.env.DB_STRING, { useNewUrlParser: true })
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var authRouter = require('./routes/auth');
+var projectRouter = require('./routes/projects');
 
 var app = express();
 
@@ -44,6 +45,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/css', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/css')));
 app.use('/css', express.static(path.join(__dirname, '/node_modules/mdbootstrap/css')));
+app.use('/css', express.static(path.join(__dirname, '/node_modules/font-awesome/css')));
+app.use('/font', express.static(path.join(__dirname, '/node_modules/mdbootstrap/font')));
+app.use('/fonts', express.static(path.join(__dirname, '/node_modules/font-awesome/fonts')));
 app.use('/js', express.static(path.join(__dirname, '/node_modules/bootstrap/dist/js')));
 app.use('/js', express.static(path.join(__dirname, '/node_modules/jquery/dist')));
 app.use('/js', express.static(path.join(__dirname, '/node_modules/popper.js/dist')));
@@ -91,6 +95,7 @@ app.use(function(req, res, next) {
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
+app.use('/projects', projectRouter);
 
 
 
