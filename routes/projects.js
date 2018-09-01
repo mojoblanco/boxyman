@@ -10,16 +10,18 @@ router.get('/', function(req, res, next) {
     });
 });
 
-// router.get('/create', function(req, res) {
-//     var project = new Project({
-//         name: 'Project 1',
-//         baseUrl: 'http://google.com'
-//     });
+router.post('/create', function(req, res) {
+    var project = new Project({
+        name: req.body.name,
+        baseUrl: req.body.baseUrl,
+        description: req.body.description,
+        isPublished: req.body.isPublished
+    });
 
-//     project.save(function(err) {
-//         if (err) return handleError(err);
-//         res.send('done');
-//     })
-// });
+    project.save(function(err) {
+        if (err) return handleError(err);
+        res.send('done');
+    })
+});
 
 module.exports = router;

@@ -40,7 +40,13 @@ module.exports = {
     },
     methods: {
         saveProject() {
-            console.log(this.project);
+            this.axios.post("/projects/create", this.project)
+            .then((response) => {
+                location.reload();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
         }
     }
 }
