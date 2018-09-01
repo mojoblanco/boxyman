@@ -6,7 +6,7 @@
         "start": "node ./bin/www",
         "dev": "nodemon --inspect ./bin/www",
         "debug": "DEBUG=app nodemon ./bin/www",
-        "watch": "watchify -vd -p browserify-hmr -t vueify -e public/js/app.js -o public/js/bundle.js"
+        "watch": "watchify -vd -p browserify-hmr -t vueify -e public/js/main.js -o public/js/bundle.js"
     },
     "dependencies": {
         "bcryptjs": "^2.4.3",
