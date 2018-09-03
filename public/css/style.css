@@ -8,6 +8,10 @@ body {
     margin-bottom: 60px;
 }
 
+#app {
+    margin-bottom: 100px;
+}
+
 .footer {
     position: absolute;
     bottom: 0;
