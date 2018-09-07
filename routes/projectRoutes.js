@@ -10,16 +10,22 @@ router.get('/', function(req, res, next) {
     });
 });
 
-router.post('/create', function(req, res) {
+router.get('/create', function(req, res) {
+    res.render('projects/create');
+});
+
+router.post('/store', function(req, res) {
     var project = new Project({
         name: req.body.name,
         baseUrl: req.body.baseUrl,
         description: req.body.description,
-        isPublished: req.body.isPublished
+        isPublished: (req.body.isPublished == 'on') ? true : false
     });
 
     project.save(function(err) {
-        if (err) return handleError(err);
+        if (err) {
+            return res.render('projects/create');
+        }
         res.send('done');
     })
 });
