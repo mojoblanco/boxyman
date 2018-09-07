@@ -19,10 +19,10 @@ mongoose.connect(process.env.DB_STRING, { useNewUrlParser: true })
     .catch(err => console.log(err));
 
 // Routes
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var authRouter = require('./routes/auth');
-var projectRouter = require('./routes/projects');
+var indexRouter = require('./routes/indexRoutes');
+var usersRouter = require('./routes/userRoutes');
+var authRouter = require('./routes/authRoutes');
+var projectRouter = require('./routes/projectRoutes');
 
 var app = express();
 
