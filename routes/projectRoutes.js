@@ -1,20 +1,20 @@
-var express = require('express');
-var router = express.Router();
-
+const express = require('express');
+const router = express.Router();
+const auth = require('../middlewares/auth');
 const Project = require('../models/Project');
 
 /* GET project listing. */
-router.get('/', function(req, res, next) {
+router.get('/', auth, function(req, res, next) {
     Project.find({}, function(err, projects) {
         res.render('projects/index', { projects: projects });
     });
 });
 
-router.get('/create', function(req, res) {
+router.get('/create', auth, function(req, res) {
     res.render('projects/create');
 });
 
-router.post('/store', function(req, res) {
+router.post('/store', auth, function(req, res) {
     var project = new Project({
         name: req.body.name,
         baseUrl: req.body.baseUrl,
